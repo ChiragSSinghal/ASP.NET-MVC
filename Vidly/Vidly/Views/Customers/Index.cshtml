@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Vidly.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+
+<div>
+    @Html.ActionLink("NEW CUSTOMER", "New", "Customer", new { @class = "btn btn-primary" })
+</div>
+
+<br />
+
+@if (!Model.Any())
+{
+    <p>There are no customers in the database.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Membership Type</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cust in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(cust.Name, "Edit", "Customers", new { id = cust.ID }, null)
+                    </td>
+                    <td>
+                        @cust.MembershipType.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink("DELETE", "DelResult", "Customers", new {id = cust.ID }, new { @class = "btn btn-danger"})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
